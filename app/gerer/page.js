@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
+import ProduitsGestion from '@/components/ProduitsGestion';i
+
 
 export default function Gerer() {
   const router = useRouter();
@@ -79,7 +81,7 @@ export default function Gerer() {
               {boutique.logo_url ? 'Changer le logo' : 'Ajouter un logo'}
               <input type="file" accept="image/*" onChange={changerLogo} style={{ display: 'none' }} />
             </label>
-            <p>(Produits et commandes : prochaines étapes.)</p>
+            <ProduitsGestion boutique={boutique} user={user} />
           </div>
         ) : (
           <p style={{ marginTop: 16 }}>
