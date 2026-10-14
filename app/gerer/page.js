@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
 import ProduitsGestion from '@/components/ProduitsGestion';
 import CommandesGestion from '@/components/CommandesGestion';
+import MessageAccueil from '@/components/MessageAccueil';
 
 export default function Gerer() {
   const router = useRouter();
@@ -84,6 +85,7 @@ export default function Gerer() {
               {boutique.logo_url ? 'Changer le logo' : 'Ajouter un logo'}
               <input type="file" accept="image/*" onChange={changerLogo} style={{ display: 'none' }} />
             </label>
+                <MessageAccueil boutique={boutique} />
                 <CommandesGestion boutique={boutique} />
             <ProduitsGestion boutique={boutique} user={user} />
           </div>
