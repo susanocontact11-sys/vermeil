@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
-import ProduitsGestion from '@/components/ProduitsGestion';i
+import ProduitsGestion from '@/components/ProduitsGestion';
 
 
 export default function Gerer() {
