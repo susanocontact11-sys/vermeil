@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { compresserImage } from '@/lib/image';
 
 export default function Gerer() {
   const router = useRouter();
@@ -34,7 +35,27 @@ export default function Gerer() {
     await supabase.auth.signOut();
     router.replace('/connexion');
   }
-
+  async function changerLogo(e) {
+    const f = e.target.files[0];
+    if (!f) return;
+    try {
+      const blob = await compresserImage(f, 400);
+      const chemin = `${user.id}/logo-${Date.now()}.webp`;
+      const { error: errUp } = await supabase.storage
+        .from('images')
+        .upload(chemin, blob, { contentType: 'image/webp' });
+      if (errUp) throw errUp;
+      const url = supabase.storage.from('images').getPublicUrl(chemin).data.publicUrl;
+      const { error } = await supabase
+        .from('boutiques')
+        .update({ logo_url: url })
+        .eq('id', boutique.id);
+      if (error) throw error;
+      setBoutique({ ...boutique, logo_url: url });
+    } catch (err) {
+      alert(err.message);
+    }
+        }
   if (!pret) return <p style={{ padding: 20 }}>Chargement…</p>;
 
   return (
@@ -54,6 +75,10 @@ export default function Gerer() {
             )}
             <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>{boutique.nom}</h2>
             <p>{boutique.description}</p>
+                          <label style={{ display: 'block', marginTop: 12, textDecoration: 'underline', cursor: 'pointer' }}>
+              {boutique.logo_url ? 'Changer le logo' : 'Ajouter un logo'}
+              <input type="file" accept="image/*" onChange={changerLogo} style={{ display: 'none' }} />
+            </label>
             <p>(Produits et commandes : prochaines étapes.)</p>
           </div>
         ) : (
