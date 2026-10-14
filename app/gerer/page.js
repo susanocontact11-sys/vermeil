@@ -77,6 +77,9 @@ export default function Gerer() {
             )}
             <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>{boutique.nom}</h2>
             <p>{boutique.description}</p>
+              <Link href={`/boutique/${boutique.slug}`} style={{ display: 'block', marginTop: 12, textDecoration: 'underline' }}>
+  Voir ma boutique comme un client
+</Link>
                           <label style={{ display: 'block', marginTop: 12, textDecoration: 'underline', cursor: 'pointer' }}>
               {boutique.logo_url ? 'Changer le logo' : 'Ajouter un logo'}
               <input type="file" accept="image/*" onChange={changerLogo} style={{ display: 'none' }} />
