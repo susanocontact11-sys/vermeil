@@ -1,26 +1,163 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --vermeil: #b3261e;
+  --vermeil-fonce: #8c1c15;
+  --or: #e08a00;
+  --or-clair: #f0a830;
+  --creme: #fff8f1;
+  --creme-fonce: #fde7d6;
+  --encre: #3a2a20;
+  --bordure: #e6d3c1;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--creme);
+  color: var(--encre);
+  font-family: var(--font-texte), system-ui, sans-serif;
+  line-height: 1.5;
 }
+
+/* ---------- Typographie ---------- */
+
+.calli {
+  font-family: var(--font-calli), cursive;
+  font-weight: 400;
+}
+
+.texte-degrade {
+  background: linear-gradient(90deg, var(--vermeil), var(--or));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Cartes et boutons ---------- */
+
+.carte {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(120, 60, 20, 0.08);
+}
+
+.bouton {
+  display: block;
+  text-align: center;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--vermeil), var(--vermeil-fonce));
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(179, 38, 30, 0.25);
+  transition: transform 0.15s ease;
+}
+
+.bouton:active {
+  transform: scale(0.98);
+}
+
+.bouton-or {
+  background: linear-gradient(135deg, var(--or-clair), var(--or));
+  box-shadow: 0 6px 16px rgba(224, 138, 0, 0.3);
+}
+
+.bouton-contour {
+  background: transparent;
+  color: var(--vermeil);
+  border: 2px solid var(--vermeil);
+  box-shadow: none;
+}
+
+.sous-titre {
+  display: block;
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* ---------- Page d'accueil ---------- */
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 30%, #ffe9cf 0%, var(--creme) 62%);
+}
+
+.hero-v {
+  font-size: clamp(8rem, 38vw, 13rem);
+  line-height: 0.9;
+  color: var(--vermeil);
+  text-shadow: 0 6px 24px rgba(179, 38, 30, 0.2);
+}
+
+.ornement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--or);
+  max-width: 260px;
+  margin: 14px auto;
+}
+
+.ornement::before,
+.ornement::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--or));
+}
+
+.ornement::after {
+  transform: scaleX(-1);
+}
+
+.fleche {
+  font-size: 2rem;
+  color: var(--or);
+  animation: flotte 1.8s ease-in-out infinite;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes flotte {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.apparition {
+  animation: apparition 0.9s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fleche,
+  .apparition {
+    animation: none;
+  }
+  }
+    
