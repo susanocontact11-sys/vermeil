@@ -22,7 +22,7 @@ function formaterPrix(prix) {
 export default function ProduitsGestion({ boutique, user }) {
   const [produits, setProduits] = useState([]);
   const [chargement, setChargement] = useState(true);
-  const [form, setForm] = useState({ nom: '', prix: '', description: '', delai: '' });
+  const [form, setForm] = useState({ nom: '', prix: '', description: '', delai: '', categorie: boutique.categorie || 'Autre' });
   const [photo, setPhoto] = useState(null);
   const [apercu, setApercu] = useState('');
   const [cle, setCle] = useState(0); // sert à vider le champ photo
@@ -74,6 +74,7 @@ export default function ProduitsGestion({ boutique, user }) {
           prix: parseInt(form.prix, 10),
           description: form.description.trim() || null,
           delai_fabrication: form.delai.trim() || null,
+          categorie: form.categorie,
           image_url,
         })
         .select()
@@ -81,7 +82,7 @@ export default function ProduitsGestion({ boutique, user }) {
       if (error) throw error;
 
       setProduits([data, ...produits]);
-      setForm({ nom: '', prix: '', description: '', delai: '' });
+    setForm({ nom: '', prix: '', description: '', delai: '', categorie: form.categorie });
       setPhoto(null);
       setApercu('');
       setCle(cle + 1);
@@ -139,6 +140,15 @@ export default function ProduitsGestion({ boutique, user }) {
             onChange={maj}
             required
           />
+        </label>
+                      <label style={etiquette}>
+          Catégorie
+          <select style={champ} name="categorie" value={form.categorie} onChange={maj}>
+            <option>Bijoux</option>
+            <option>Perles</option>
+            <option>T-shirts personnalisés</option>
+            <option>Autre</option>
+          </select>
         </label>
 
         <label style={etiquette}>
