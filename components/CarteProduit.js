@@ -6,13 +6,23 @@ import { supabase } from '@/lib/supabase';
 const champ = {
   width: '100%',
   padding: 10,
-  border: '1px solid #c9b8a8',
-  borderRadius: 10,
+  border: '1.5px solid var(--bordure)',
+  borderRadius: 12,
   background: '#fff',
-  color: '#3a2a20',
+  color: 'var(--encre)',
   fontSize: '1rem',
 };
-const etiquette = { display: 'grid', gap: 4, fontWeight: 600, fontSize: '0.9rem' };
+const etiquette = { display: 'grid', gap: 4, fontWeight: 700, fontSize: '0.9rem' };
+
+const puce = {
+  display: 'inline-block',
+  padding: '1px 8px',
+  borderRadius: 999,
+  background: 'var(--creme-fonce)',
+  color: 'var(--vermeil)',
+  fontSize: '0.7rem',
+  fontWeight: 700,
+};
 
 function formaterPrix(prix) {
   return `${new Intl.NumberFormat('fr-FR').format(prix)} F`;
@@ -80,9 +90,8 @@ export default function CarteProduit({ p, boutique }) {
 
   return (
     <div
+      className="carte"
       style={{
-        background: '#fff',
-        borderRadius: 16,
         overflow: 'hidden',
         opacity: p.disponible ? 1 : 0.6,
         gridColumn: ouvert ? '1 / -1' : 'auto',
@@ -101,35 +110,33 @@ export default function CarteProduit({ p, boutique }) {
         />
       )}
 
-      <div style={{ padding: 10 }}>
-        <div style={{ fontWeight: 700 }}>{p.nom}</div>
-        <div>{formaterPrix(p.prix)}</div>
+      <div style={{ padding: 12 }}>
+        {p.categorie && <span style={puce}>{p.categorie}</span>}
+        <div style={{ fontWeight: 800, marginTop: 4 }}>{p.nom}</div>
+        <div style={{ color: 'var(--vermeil)', fontWeight: 800, fontSize: '1.05rem' }}>
+          {formaterPrix(p.prix)}
+        </div>
         {p.description && ouvert && <p style={{ margin: '6px 0' }}>{p.description}</p>}
         {p.delai_fabrication && (
           <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>Délai : {p.delai_fabrication}</div>
         )}
 
-        {!p.disponible && <div style={{ fontSize: '0.8rem', fontWeight: 700 }}>Indisponible</div>}
+        {!p.disponible && (
+          <div style={{ fontSize: '0.85rem', fontWeight: 800, marginTop: 4 }}>Indisponible</div>
+        )}
 
         {p.disponible && !ouvert && (
           <button
             onClick={() => setOuvert(true)}
-            style={{
-              marginTop: 8,
-              width: '100%',
-              padding: 10,
-              borderRadius: 12,
-              background: '#b3261e',
-              color: '#fff',
-              fontWeight: 700,
-            }}
+            className="bouton"
+            style={{ width: '100%', marginTop: 10, padding: '10px 12px', fontSize: '0.95rem' }}
           >
             Commander
           </button>
         )}
 
         {ouvert && !commande && (
-          <form onSubmit={envoyer} style={{ display: 'grid', gap: 12, marginTop: 12 }}>
+          <form onSubmit={envoyer} style={{ display: 'grid', gap: 12, marginTop: 14 }}>
             <label style={etiquette}>
               Ton nom
               <input style={champ} name="nom" value={form.nom} onChange={maj} required />
@@ -176,21 +183,15 @@ export default function CarteProduit({ p, boutique }) {
             <button
               type="submit"
               disabled={envoi}
-              style={{
-                padding: 12,
-                borderRadius: 12,
-                background: '#b3261e',
-                color: '#fff',
-                fontWeight: 700,
-                opacity: envoi ? 0.6 : 1,
-              }}
+              className="bouton"
+              style={{ width: '100%', opacity: envoi ? 0.6 : 1 }}
             >
               {envoi ? 'Envoi…' : 'Envoyer ma commande'}
             </button>
             <button
               type="button"
               onClick={() => setOuvert(false)}
-              style={{ textDecoration: 'underline' }}
+              style={{ textDecoration: 'underline', fontWeight: 700 }}
             >
               Annuler
             </button>
@@ -199,8 +200,8 @@ export default function CarteProduit({ p, boutique }) {
         )}
 
         {commande && (
-          <div style={{ marginTop: 12, display: 'grid', gap: 10 }}>
-            <p style={{ fontWeight: 700 }}>Commande envoyée ✅</p>
+          <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
+            <p style={{ fontWeight: 800 }}>Commande envoyée ✅</p>
             <p style={{ fontSize: '0.9rem' }}>
               Le créateur la verra dans son espace. Pour aller plus vite, préviens-le aussi sur
               WhatsApp :
@@ -209,14 +210,10 @@ export default function CarteProduit({ p, boutique }) {
               href={lienWhatsApp}
               target="_blank"
               rel="noopener noreferrer"
+              className="bouton"
               style={{
-                padding: 12,
-                borderRadius: 12,
-                background: '#1f8f4d',
-                color: '#fff',
-                fontWeight: 700,
-                textAlign: 'center',
-                textDecoration: 'none',
+                background: 'linear-gradient(135deg, #2bb463, #1f8f4d)',
+                boxShadow: '0 6px 16px rgba(31, 143, 77, 0.25)',
               }}
             >
               Prévenir le créateur sur WhatsApp
@@ -226,5 +223,5 @@ export default function CarteProduit({ p, boutique }) {
       </div>
     </div>
   );
-      }
+}
   
