@@ -1,7 +1,14 @@
 import Link from 'next/link';
-
+function Point({ children }) {
+  return (
+    <li style={{ display: 'flex', gap: 10, marginTop: 10 }}>
+      <span style={{ color: 'var(--or)' }}>◆</span>
+      <span>{children}</span>
+    </li>
+  );
+}
 // Remets ici ton numéro WhatsApp : indicatif 229 + numéro, sans + ni espaces
-const NUMERO_WHATSAPP = '229XXXXXXXXXX';
+const NUMERO_WHATSAPP = '2290193517846';
 const MESSAGE = "Bonjour Vermeil, j'ai besoin d'aide.";
 
 export default function Accueil() {
@@ -43,6 +50,33 @@ export default function Accueil() {
           <Link href="/gerer" className="bouton bouton-contour">
             Gérer ma boutique
           </Link>
+        </div>
+      </section>
+                    <section style={{ padding: '8px 24px 40px' }}>
+        <div style={{ maxWidth: 420, margin: '0 auto', display: 'grid', gap: 20 }}>
+          <div className="carte" style={{ padding: 20 }}>
+            <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+              Pourquoi acheter sur Vermeil ?
+            </h2>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              <Point>Des pièces uniques : chaque création est faite à la main, pas en série.</Point>
+              <Point>Tu parles directement au créateur sur WhatsApp : questions, personnalisation, tout est possible.</Point>
+              <Point>Tu t'arranges avec lui pour la livraison et le paiement, simplement.</Point>
+              <Point>Tu soutiens de jeunes talents béninois.</Point>
+            </ul>
+          </div>
+
+          <div className="carte" style={{ padding: 20 }}>
+            <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+              Pourquoi créer et vendre sur Vermeil ?
+            </h2>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              <Point>Ouvre ta boutique en quelques minutes, depuis ton téléphone, gratuitement pour démarrer.</Point>
+              <Point>Tu as un lien rien qu'à toi à partager sur WhatsApp, Instagram ou TikTok.</Point>
+              <Point>Les commandes arrivent dans ton espace, avec le contact du client prêt sur WhatsApp.</Point>
+              <Point>Tu restes libre : tes prix, tes produits, tes clients.</Point>
+            </ul>
+          </div>
         </div>
       </section>
 
