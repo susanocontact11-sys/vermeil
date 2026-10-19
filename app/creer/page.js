@@ -38,7 +38,6 @@ export default function Creer() {
   const [form, setForm] = useState({
     nom: '',
     description: '',
-    categorie: 'Bijoux',
     whatsapp: '',
     instagram: '',
     facebook: '',
@@ -104,7 +103,6 @@ export default function Creer() {
         slug: fairesSlug(form.nom),
         nom: form.nom.trim(),
         description: form.description.trim(),
-        categorie: form.categorie,
         whatsapp: nettoyerNumero(form.whatsapp),
         instagram: form.instagram.trim() || null,
         facebook: form.facebook.trim() || null,
@@ -143,16 +141,6 @@ export default function Creer() {
               placeholder="Qui es-tu, que crées-tu ?"
               required
             />
-          </label>
-
-          <label style={etiquette}>
-            Catégorie
-            <select style={champ} name="categorie" value={form.categorie} onChange={maj}>
-              <option>Bijoux</option>
-              <option>Perles</option>
-              <option>T-shirts personnalisés</option>
-              <option>Autre</option>
-            </select>
           </label>
 
           <label style={etiquette}>
