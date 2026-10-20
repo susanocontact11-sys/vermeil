@@ -10,6 +10,13 @@ const STATUTS = [
   { valeur: 'annulee', libelle: 'Annulée' },
 ];
 
+const COULEURS = {
+  recue: 'var(--vermeil)',
+  en_preparation: 'var(--or)',
+  livree: '#1f8f4d',
+  annulee: '#9a8c82',
+};
+
 function formaterPrix(prix) {
   return `${new Intl.NumberFormat('fr-FR').format(prix)} F`;
 }
@@ -55,59 +62,75 @@ export default function CommandesGestion({ boutique }) {
   const nouvelles = commandes.filter((c) => c.statut === 'recue').length;
 
   return (
-    <section style={{ marginTop: 32 }}>
+    <section>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>
-          Mes commandes{nouvelles > 0 ? ` (${nouvelles} nouvelle${nouvelles > 1 ? 's' : ''})` : ''}
+        <h2 className="calli" style={{ fontSize: '2.2rem', color: 'var(--vermeil)' }}>
+          Mes commandes
         </h2>
-        <button onClick={charger} style={{ textDecoration: 'underline' }}>
+        <button
+          onClick={charger}
+          style={{ textDecoration: 'underline', fontWeight: 700, color: 'var(--vermeil)' }}
+        >
           Actualiser
         </button>
       </div>
+      {nouvelles > 0 && (
+        <p style={{ fontWeight: 800, color: 'var(--vermeil)' }}>
+          {nouvelles} nouvelle{nouvelles > 1 ? 's' : ''} commande{nouvelles > 1 ? 's' : ''} à traiter
+        </p>
+      )}
 
-      <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
+      <div style={{ display: 'grid', gap: 14, marginTop: 12 }}>
         {chargement && <p>Chargement…</p>}
-        {!chargement && commandes.length === 0 && <p>Aucune commande pour l'instant.</p>}
+        {!chargement && commandes.length === 0 && (
+          <div className="carte" style={{ padding: 20, textAlign: 'center' }}>
+            Aucune commande pour l'instant. Partage ton lien pour en recevoir !
+          </div>
+        )}
 
         {commandes.map((c) => {
           const message =
             `Bonjour ${c.client_nom}, c'est ${boutique.nom} sur Vermeil. ` +
             `J'ai bien reçu ta commande : ${c.quantite} × ${c.produit_nom}.`;
           const lien = `https://wa.me/${c.client_whatsapp}?text=${encodeURIComponent(message)}`;
+          const couleur = COULEURS[c.statut] || COULEURS.recue;
 
           return (
             <div
               key={c.id}
-              style={{
-                background: '#fff',
-                borderRadius: 14,
-                padding: 14,
-                border: c.statut === 'recue' ? '2px solid #b3261e' : '2px solid transparent',
-              }}
+              className="carte"
+              style={{ padding: 16, borderLeft: `6px solid ${couleur}` }}
             >
-              <div style={{ fontWeight: 700 }}>
-                {c.quantite} × {c.produit_nom}
-              </div>
-              <div>Total : {formaterPrix(c.prix * c.quantite)}</div>
-              <div style={{ marginTop: 6 }}>
-                Client : {c.client_nom}
-                {c.client_quartier ? ` · ${c.client_quartier}` : ''}
-              </div>
-              {c.note && <div style={{ fontStyle: 'italic' }}>« {c.note} »</div>}
-              <div style={{ fontSize: '0.8rem', opacity: 0.7, marginTop: 4 }}>
-                {formaterDate(c.created_at)}
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
+                <div style={{ fontWeight: 800 }}>
+                  {c.quantite} × {c.produit_nom}
+                </div>
+                <div style={{ fontSize: '0.8rem', opacity: 0.7, whiteSpace: 'nowrap' }}>
+                  {formaterDate(c.created_at)}
+                </div>
               </div>
 
-              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 10 }}>
+              <div style={{ color: 'var(--vermeil)', fontWeight: 800 }}>
+                Total : {formaterPrix(c.prix * c.quantite)}
+              </div>
+
+              <div style={{ marginTop: 8 }}>
+                {c.client_nom}
+                {c.client_quartier ? ` · ${c.client_quartier}` : ''}
+              </div>
+              {c.note && <div style={{ fontStyle: 'italic', opacity: 0.85 }}>« {c.note} »</div>}
+
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 12 }}>
                 <select
                   value={c.statut}
                   onChange={(e) => changerStatut(c, e.target.value)}
                   style={{
-                    padding: 8,
-                    borderRadius: 10,
-                    border: '1px solid #c9b8a8',
+                    padding: 10,
+                    borderRadius: 12,
+                    border: `2px solid ${couleur}`,
                     background: '#fff',
-                    color: '#3a2a20',
+                    color: 'var(--encre)',
+                    fontWeight: 700,
                   }}
                 >
                   {STATUTS.map((s) => (
@@ -121,13 +144,13 @@ export default function CommandesGestion({ boutique }) {
                   href={lien}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="bouton"
                   style={{
-                    padding: '8px 12px',
-                    borderRadius: 10,
-                    background: '#1f8f4d',
-                    color: '#fff',
-                    fontWeight: 700,
-                    textDecoration: 'none',
+                    flex: 1,
+                    padding: '10px 12px',
+                    fontSize: '0.9rem',
+                    background: 'linear-gradient(135deg, #2bb463, #1f8f4d)',
+                    boxShadow: '0 6px 16px rgba(31, 143, 77, 0.25)',
                   }}
                 >
                   Contacter sur WhatsApp
@@ -139,5 +162,5 @@ export default function CommandesGestion({ boutique }) {
       </div>
     </section>
   );
-                    }
-  
+    }
+            
