@@ -17,9 +17,11 @@ export default function MessageAccueil({ boutique }) {
   }
 
   return (
-    <section style={{ marginTop: 24 }}>
-      <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>Mon message aux clients</h2>
-      <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+    <div className="carte" style={{ padding: 20, marginTop: 16 }}>
+      <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+        Mon message aux clients
+      </h2>
+      <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>
         Il s'affiche en haut de ta boutique. Ex : « Découvre ma nouvelle création sur ma story
         Facebook ! »
       </p>
@@ -29,29 +31,23 @@ export default function MessageAccueil({ boutique }) {
         maxLength={300}
         style={{
           width: '100%',
-          minHeight: 80,
+          minHeight: 90,
           padding: 12,
           marginTop: 8,
-          border: '1px solid #c9b8a8',
-          borderRadius: 10,
+          border: '1.5px solid var(--bordure)',
+          borderRadius: 12,
           background: '#fff',
-          color: '#3a2a20',
+          color: 'var(--encre)',
         }}
       />
       <button
         onClick={enregistrer}
-        style={{
-          marginTop: 8,
-          padding: '10px 16px',
-          borderRadius: 12,
-          background: '#b3261e',
-          color: '#fff',
-          fontWeight: 700,
-        }}
+        className="bouton"
+        style={{ width: '100%', marginTop: 10 }}
       >
         Enregistrer le message
       </button>
-      {etat && <p>{etat}</p>}
-    </section>
+      {etat && <p style={{ marginTop: 8 }}>{etat}</p>}
+    </div>
   );
-  }
+}
