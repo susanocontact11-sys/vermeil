@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import VitrineProduits from '@/components/VitrineProduits';
 function Point({ children }) {
   return (
     <li style={{ display: 'flex', gap: 10, marginTop: 10 }}>
