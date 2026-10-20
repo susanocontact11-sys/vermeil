@@ -160,4 +160,15 @@ body {
     animation: none;
   }
   }
-    
+ .rangee {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 24px 16px;
+  scrollbar-width: none;
+}
+
+.rangee::-webkit-scrollbar {
+  display: none;
+}   
