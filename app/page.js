@@ -53,6 +53,7 @@ export default function Accueil() {
           </Link>
         </div>
       </section>
+                    <VitrineProduits />
                     <section style={{ padding: '8px 24px 40px' }}>
         <div style={{ maxWidth: 420, margin: '0 auto', display: 'grid', gap: 20 }}>
           <div className="carte" style={{ padding: 20 }}>
