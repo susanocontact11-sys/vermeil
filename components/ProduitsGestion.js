@@ -4,25 +4,45 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
 
+const CATEGORIES = ['Bijoux', 'Perles', 'T-shirts personnalisés', 'Autre'];
+
 const champ = {
   width: '100%',
   padding: 12,
-  border: '1px solid #c9b8a8',
-  borderRadius: 10,
+  border: '1.5px solid var(--bordure)',
+  borderRadius: 12,
   background: '#fff',
-  color: '#3a2a20',
+  color: 'var(--encre)',
   fontSize: '1rem',
 };
-const etiquette = { display: 'grid', gap: 6, fontWeight: 600 };
+const etiquette = { display: 'grid', gap: 6, fontWeight: 700 };
+
+const puce = {
+  display: 'inline-block',
+  padding: '1px 8px',
+  borderRadius: 999,
+  background: 'var(--creme-fonce)',
+  color: 'var(--vermeil)',
+  fontSize: '0.7rem',
+  fontWeight: 700,
+};
 
 function formaterPrix(prix) {
   return `${new Intl.NumberFormat('fr-FR').format(prix)} F`;
 }
 
 export default function ProduitsGestion({ boutique, user }) {
+  const categorieParDefaut = CATEGORIES.includes(boutique.categorie) ? boutique.categorie : 'Autre';
+
   const [produits, setProduits] = useState([]);
   const [chargement, setChargement] = useState(true);
-  const [form, setForm] = useState({ nom: '', prix: '', description: '', delai: '', categorie: boutique.categorie || 'Autre' });
+  const [form, setForm] = useState({
+    nom: '',
+    prix: '',
+    description: '',
+    delai: '',
+    categorie: categorieParDefaut,
+  });
   const [photo, setPhoto] = useState(null);
   const [apercu, setApercu] = useState('');
   const [cle, setCle] = useState(0); // sert à vider le champ photo
@@ -82,7 +102,7 @@ export default function ProduitsGestion({ boutique, user }) {
       if (error) throw error;
 
       setProduits([data, ...produits]);
-    setForm({ nom: '', prix: '', description: '', delai: '', categorie: form.categorie });
+      setForm({ nom: '', prix: '', description: '', delai: '', categorie: form.categorie });
       setPhoto(null);
       setApercu('');
       setCle(cle + 1);
@@ -119,10 +139,16 @@ export default function ProduitsGestion({ boutique, user }) {
   }
 
   return (
-    <section style={{ marginTop: 32 }}>
-      <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>Mes produits</h2>
+    <section>
+      <h2 className="calli" style={{ fontSize: '2.2rem', color: 'var(--vermeil)' }}>
+        Ajouter un produit
+      </h2>
 
-      <form onSubmit={ajouter} style={{ display: 'grid', gap: 14, marginTop: 12 }}>
+      <form
+        onSubmit={ajouter}
+        className="carte"
+        style={{ display: 'grid', gap: 14, padding: 18, marginTop: 8 }}
+      >
         <label style={etiquette}>
           Nom du produit
           <input style={champ} name="nom" value={form.nom} onChange={maj} required />
@@ -141,13 +167,13 @@ export default function ProduitsGestion({ boutique, user }) {
             required
           />
         </label>
-                      <label style={etiquette}>
+
+        <label style={etiquette}>
           Catégorie
           <select style={champ} name="categorie" value={form.categorie} onChange={maj}>
-            <option>Bijoux</option>
-            <option>Perles</option>
-            <option>T-shirts personnalisés</option>
-            <option>Autre</option>
+            {CATEGORIES.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
           </select>
         </label>
 
@@ -158,7 +184,7 @@ export default function ProduitsGestion({ boutique, user }) {
             <img
               src={apercu}
               alt="Aperçu"
-              style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 12 }}
+              style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 14 }}
             />
           )}
         </label>
@@ -187,32 +213,34 @@ export default function ProduitsGestion({ boutique, user }) {
         <button
           type="submit"
           disabled={envoi}
-          style={{
-            padding: 14,
-            borderRadius: 14,
-            background: '#b3261e',
-            color: '#fff',
-            fontWeight: 700,
-            opacity: envoi ? 0.6 : 1,
-          }}
+          className="bouton"
+          style={{ width: '100%', opacity: envoi ? 0.6 : 1 }}
         >
           {envoi ? 'Ajout en cours…' : 'Ajouter ce produit'}
         </button>
         {erreur && <p style={{ color: 'crimson' }}>{erreur}</p>}
       </form>
 
-      <div style={{ display: 'grid', gap: 12, marginTop: 24 }}>
+      <h2 className="calli" style={{ fontSize: '2.2rem', color: 'var(--vermeil)', marginTop: 28 }}>
+        Mes produits
+      </h2>
+
+      <div style={{ display: 'grid', gap: 12, marginTop: 8 }}>
         {chargement && <p>Chargement…</p>}
-        {!chargement && produits.length === 0 && <p>Aucun produit pour l'instant.</p>}
+        {!chargement && produits.length === 0 && (
+          <div className="carte" style={{ padding: 20, textAlign: 'center' }}>
+            Aucun produit pour l'instant.
+          </div>
+        )}
+
         {produits.map((p) => (
           <div
             key={p.id}
+            className="carte"
             style={{
               display: 'flex',
               gap: 12,
               padding: 12,
-              background: '#fff',
-              borderRadius: 14,
               opacity: p.disponible ? 1 : 0.6,
             }}
           >
@@ -220,19 +248,24 @@ export default function ProduitsGestion({ boutique, user }) {
               <img
                 src={p.image_url}
                 alt={p.nom}
-                style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 10 }}
+                style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 14, flexShrink: 0 }}
               />
             )}
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700 }}>{p.nom}</div>
-              <div>{formaterPrix(p.prix)}</div>
-              <div style={{ display: 'flex', gap: 16, marginTop: 6, fontSize: '0.9rem' }}>
-                <button onClick={() => basculerDispo(p)} style={{ textDecoration: 'underline' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {p.categorie && <span style={puce}>{p.categorie}</span>}
+              <div style={{ fontWeight: 800 }}>{p.nom}</div>
+              <div style={{ color: 'var(--vermeil)', fontWeight: 800 }}>{formaterPrix(p.prix)}</div>
+              {!p.disponible && <div style={{ fontSize: '0.8rem', fontWeight: 800 }}>Indisponible</div>}
+              <div style={{ display: 'flex', gap: 14, marginTop: 6, fontSize: '0.85rem' }}>
+                <button
+                  onClick={() => basculerDispo(p)}
+                  style={{ textDecoration: 'underline', fontWeight: 700 }}
+                >
                   {p.disponible ? 'Marquer indisponible' : 'Remettre en vente'}
                 </button>
                 <button
                   onClick={() => supprimer(p)}
-                  style={{ textDecoration: 'underline', color: 'crimson' }}
+                  style={{ textDecoration: 'underline', fontWeight: 700, color: 'crimson' }}
                 >
                   Supprimer
                 </button>
@@ -243,5 +276,5 @@ export default function ProduitsGestion({ boutique, user }) {
       </div>
     </section>
   );
-            }
-    
+        }
+            
