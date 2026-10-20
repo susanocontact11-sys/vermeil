@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
@@ -8,13 +9,14 @@ import { compresserImage } from '@/lib/image';
 const champ = {
   width: '100%',
   padding: 12,
-  border: '1px solid #c9b8a8',
-  borderRadius: 10,
+  border: '1.5px solid var(--bordure)',
+  borderRadius: 12,
   background: '#fff',
-  color: '#3a2a20',
+  color: 'var(--encre)',
   fontSize: '1rem',
 };
-const etiquette = { display: 'grid', gap: 6, fontWeight: 600 };
+const etiquette = { display: 'grid', gap: 6, fontWeight: 700 };
+const aide = { fontWeight: 400, fontSize: '0.8rem', opacity: 0.7 };
 
 function fairesSlug(nom) {
   const base = nom
@@ -121,96 +123,166 @@ export default function Creer() {
   if (!user) return <p style={{ padding: 20 }}>Chargement…</p>;
 
   return (
-    <main style={{ background: '#fff8f1', color: '#3a2a20', minHeight: '100vh', padding: 24 }}>
+    <main style={{ minHeight: '100vh', padding: '24px 20px 56px' }}>
       <div style={{ maxWidth: 480, margin: '0 auto' }}>
-        <h1 style={{ fontSize: '1.6rem', fontWeight: 700 }}>Créer ma mini boutique</h1>
+        <Link href="/" style={{ fontWeight: 700, color: 'var(--vermeil)' }}>
+          ← Accueil
+        </Link>
 
-        <form onSubmit={envoyer} style={{ display: 'grid', gap: 16, marginTop: 16 }}>
-          <label style={etiquette}>
-            Nom de la boutique
-            <input style={champ} name="nom" value={form.nom} onChange={maj} required />
-          </label>
+        <header style={{ textAlign: 'center', margin: '20px 0 24px' }}>
+          <h1 className="calli" style={{ fontSize: '3rem', color: 'var(--vermeil)', lineHeight: 1.1 }}>
+            Ouvre ta boutique
+          </h1>
+          <div className="ornement">◆</div>
+          <p style={{ opacity: 0.8 }}>Quelques informations, et tes créations ont leur vitrine.</p>
+        </header>
 
-          <label style={etiquette}>
-            Description
-            <textarea
-              style={{ ...champ, minHeight: 90 }}
-              name="description"
-              value={form.description}
-              onChange={maj}
-              placeholder="Qui es-tu, que crées-tu ?"
-              required
-            />
-          </label>
+        <form onSubmit={envoyer} style={{ display: 'grid', gap: 18 }}>
+          <div className="carte" style={{ display: 'grid', gap: 16, padding: 20 }}>
+            <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+              Ta boutique
+            </h2>
 
-          <label style={etiquette}>
-            Logo
-            <input type="file" accept="image/*" onChange={choisirLogo} />
-            {apercu && (
-              <img
-                src={apercu}
-                alt="Aperçu du logo"
-                style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 12 }}
+            <label style={etiquette}>
+              Nom de la boutique
+              <input style={champ} name="nom" value={form.nom} onChange={maj} required />
+            </label>
+
+            <label style={etiquette}>
+              Description
+              <textarea
+                style={{ ...champ, minHeight: 90 }}
+                name="description"
+                value={form.description}
+                onChange={maj}
+                placeholder="Qui es-tu, que crées-tu ?"
+                required
               />
-            )}
-          </label>
+            </label>
 
-          <label style={etiquette}>
-            Numéro WhatsApp
-            <input
-              style={champ}
-              name="whatsapp"
-              value={form.whatsapp}
-              onChange={maj}
-              inputMode="tel"
-              placeholder="Ex : 0197000000"
-              required
-            />
-          </label>
+            <div style={etiquette}>
+              Logo
+              <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                {apercu ? (
+                  <img
+                    src={apercu}
+                    alt="Aperçu du logo"
+                    style={{
+                      width: 80,
+                      height: 80,
+                      objectFit: 'cover',
+                      borderRadius: '50%',
+                      border: '3px solid var(--or)',
+                    }}
+                  />
+                ) : (
+                  <div
+                    className="calli"
+                    style={{
+                      width: 80,
+                      height: 80,
+                      borderRadius: '50%',
+                      background: 'var(--creme-fonce)',
+                      color: 'var(--vermeil)',
+                      display: 'grid',
+                      placeItems: 'center',
+                      fontSize: '2.4rem',
+                    }}
+                  >
+                    {form.nom ? form.nom.charAt(0).toUpperCase() : '?'}
+                  </div>
+                )}
+                <label
+                  className="bouton bouton-contour"
+                  style={{ cursor: 'pointer', padding: '10px 16px', fontSize: '0.9rem' }}
+                >
+                  {apercu ? 'Changer' : 'Choisir une image'}
+                  <input type="file" accept="image/*" onChange={choisirLogo} style={{ display: 'none' }} />
+                </label>
+              </div>
+            </div>
+          </div>
 
-          <label style={etiquette}>
-            Lien Instagram (facultatif)
-            <input style={champ} name="instagram" value={form.instagram} onChange={maj} />
-          </label>
-          <label style={etiquette}>
-            Lien Facebook (facultatif)
-            <input style={champ} name="facebook" value={form.facebook} onChange={maj} />
-          </label>
-          <label style={etiquette}>
-            Lien YouTube (facultatif)
-            <input style={champ} name="youtube" value={form.youtube} onChange={maj} />
-          </label>
+          <div className="carte" style={{ display: 'grid', gap: 16, padding: 20 }}>
+            <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+              Contact et réseaux
+            </h2>
 
-          <label style={etiquette}>
-            Localisation
-            <input
-              style={champ}
-              name="localisation"
-              value={form.localisation}
-              onChange={maj}
-              placeholder="Ex : Cotonou, Calavi…"
-            />
-          </label>
+            <label style={etiquette}>
+              Numéro WhatsApp
+              <span style={aide}>C'est ici que tes clients te contacteront.</span>
+              <input
+                style={champ}
+                name="whatsapp"
+                value={form.whatsapp}
+                onChange={maj}
+                inputMode="tel"
+                placeholder="Ex : 0197000000"
+                required
+              />
+            </label>
+
+            <label style={etiquette}>
+              Instagram (facultatif)
+              <input
+                style={champ}
+                name="instagram"
+                value={form.instagram}
+                onChange={maj}
+                placeholder="Colle le lien complet de ton compte"
+              />
+            </label>
+            <label style={etiquette}>
+              Facebook (facultatif)
+              <input
+                style={champ}
+                name="facebook"
+                value={form.facebook}
+                onChange={maj}
+                placeholder="Colle le lien complet de ta page"
+              />
+            </label>
+            <label style={etiquette}>
+              YouTube (facultatif)
+              <input
+                style={champ}
+                name="youtube"
+                value={form.youtube}
+                onChange={maj}
+                placeholder="Colle le lien complet de ta chaîne"
+              />
+            </label>
+          </div>
+
+          <div className="carte" style={{ display: 'grid', gap: 16, padding: 20 }}>
+            <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
+              Où te trouver
+            </h2>
+            <label style={etiquette}>
+              Localisation
+              <input
+                style={champ}
+                name="localisation"
+                value={form.localisation}
+                onChange={maj}
+                placeholder="Ex : Cotonou, Calavi…"
+              />
+            </label>
+          </div>
 
           <button
             type="submit"
             disabled={chargement}
-            style={{
-              padding: 16,
-              borderRadius: 14,
-              background: '#b3261e',
-              color: '#fff',
-              fontWeight: 700,
-              opacity: chargement ? 0.6 : 1,
-            }}
+            className="bouton bouton-or"
+            style={{ width: '100%', opacity: chargement ? 0.6 : 1 }}
           >
             {chargement ? 'Création…' : 'Créer ma boutique'}
           </button>
 
-          {erreur && <p style={{ color: 'crimson' }}>{erreur}</p>}
+          {erreur && <p style={{ color: 'crimson', fontWeight: 700 }}>{erreur}</p>}
         </form>
       </div>
     </main>
   );
-        }
+    }
         
