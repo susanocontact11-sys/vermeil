@@ -22,7 +22,7 @@ export default function Accueil() {
         <div className="apparition">
           <div className="calli hero-v">V</div>
           <div className="calli" style={{ fontSize: '2.6rem', color: 'var(--vermeil)', marginTop: -8 }}>
-            Vermeil
+            Vybénia 
           </div>
           <div className="ornement">◆</div>
           <h1
@@ -61,7 +61,7 @@ export default function Accueil() {
         <div style={{ maxWidth: 420, margin: '0 auto', display: 'grid', gap: 20 }}>
           <div className="carte" style={{ padding: 20 }}>
             <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
-              Pourquoi acheter sur Vermeil ?
+              Pourquoi acheter sur Vybénia  ?
             </h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <Point>Des pièces uniques : chaque création est faite à la main, pas en série.</Point>
@@ -73,7 +73,7 @@ export default function Accueil() {
 
           <div className="carte" style={{ padding: 20 }}>
             <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
-              Pourquoi créer et vendre sur Vermeil ?
+              Pourquoi créer et vendre sur Vybénia  ?
             </h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <Point>Ouvre ta boutique en quelques minutes, depuis ton téléphone, gratuitement pour démarrer.</Point>
