@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import VitrineProduits from '@/components/VitrineProduits';
+
 function Point({ children }) {
   return (
     <li style={{ display: 'flex', gap: 10, marginTop: 10 }}>
@@ -11,6 +12,7 @@ function Point({ children }) {
 // Remets ici ton numéro WhatsApp : indicatif 229 + numéro, sans + ni espaces
 const NUMERO_WHATSAPP = '2290193517846';
 const MESSAGE = "Bonjour Vermeil, j'ai besoin d'aide.";
+const LIEN_CHAINE_WHATSAPP = 'colle-ici-le-lien-de-ta-chaîne';
 
 export default function Accueil() {
   return (
@@ -89,6 +91,15 @@ export default function Accueil() {
           rel="noopener noreferrer"
           style={{ fontWeight: 700, textDecoration: 'underline' }}
         >
+        <a
+          href={LIEN_CHAINE_WHATSAPP}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bouton bouton-contour"
+          style={{ maxWidth: 420, margin: '0 auto 20px' }}
+        >
+          Suivre les nouveautés sur WhatsApp
+        </a>
           Service client (WhatsApp)
         </a>
       </footer>
