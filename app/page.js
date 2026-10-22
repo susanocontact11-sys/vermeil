@@ -11,13 +11,8 @@ function Point({ children }) {
 }
 // Remets ici ton numéro WhatsApp : indicatif 229 + numéro, sans + ni espaces
 const NUMERO_WHATSAPP = '2290193517846';
-<<<<<<< HEAD
-const MESSAGE = "Bonjour Vybénia , j'ai besoin d'aide.";
-=======
 const MESSAGE = "Bonjour Vybénia , j'ai besoin d'aide.";
 const LIEN_CHAINE_WHATSAPP = 'colle-ici-le-lien-de-ta-chaîne';
->>>>>>> 8b8f015676eef7574eef7da8bae84dbcb4116695
-
 export default function Accueil() {
   return (
     <main>
