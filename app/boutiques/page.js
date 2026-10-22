@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Explorer les boutiques · Vermeil',
+  title: 'Explorer les boutiques · Vybénia ',
   description: 'Découvre des créations uniques, faites main au Bénin.',
 };
 

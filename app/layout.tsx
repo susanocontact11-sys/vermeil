@@ -6,7 +6,7 @@ const calli = Great_Vibes({ subsets: ["latin"], weight: "400", variable: "--font
 const texte = Nunito({ subsets: ["latin"], variable: "--font-texte" });
 
 export const metadata: Metadata = {
-  title: "Vermeil · Créations uniques faites main au Bénin",
+  title: "Vybénia  · Créations uniques faites main au Bénin",
   description: "Découvre des créations uniques, faites main par de jeunes créateurs béninois.",
 };
 

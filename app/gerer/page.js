@@ -95,7 +95,7 @@ export default function Gerer() {
               Ouvre ta boutique
             </h1>
             <div className="ornement">◆</div>
-            <p style={{ opacity: 0.8 }}>Tu n'as pas encore de boutique sur Vermeil.</p>
+            <p style={{ opacity: 0.8 }}>Tu n'as pas encore de boutique sur Vybénia .</p>
             <Link href="/creer" className="bouton bouton-or" style={{ marginTop: 16 }}>
               Créer ma mini boutique
             </Link>

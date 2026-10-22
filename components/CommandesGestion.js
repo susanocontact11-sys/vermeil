@@ -90,7 +90,7 @@ export default function CommandesGestion({ boutique }) {
 
         {commandes.map((c) => {
           const message =
-            `Bonjour ${c.client_nom}, c'est ${boutique.nom} sur Vermeil. ` +
+            `Bonjour ${c.client_nom}, c'est ${boutique.nom} sur Vybénia . ` +
             `J'ai bien reçu ta commande : ${c.quantite} × ${c.produit_nom}.`;
           const lien = `https://wa.me/${c.client_whatsapp}?text=${encodeURIComponent(message)}`;
           const couleur = COULEURS[c.statut] || COULEURS.recue;

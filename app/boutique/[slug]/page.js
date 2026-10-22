@@ -33,9 +33,9 @@ const puce = {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const b = await getBoutique(slug);
-  if (!b) return { title: 'Boutique introuvable · Vermeil' };
+  if (!b) return { title: 'Boutique introuvable · Vybénia ' };
 
-  const titre = `${b.nom} · Vermeil`;
+  const titre = `${b.nom} · Vybénia `;
   const description = b.description || 'Créations uniques, faites main au Bénin.';
   return {
     title: titre,

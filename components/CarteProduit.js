@@ -81,7 +81,7 @@ export default function CarteProduit({ p, boutique }) {
   let lienWhatsApp = '';
   if (commande) {
     const message =
-      `Bonjour ${boutique.nom}, je viens de commander sur Vermeil : ` +
+      `Bonjour ${boutique.nom}, je viens de commander sur Vybénia  : ` +
       `${commande.quantite} × ${p.nom} (${formaterPrix(p.prix * commande.quantite)}). ` +
       `Je m'appelle ${commande.nom}` +
       (commande.quartier ? `, quartier ${commande.quartier}.` : '.');
