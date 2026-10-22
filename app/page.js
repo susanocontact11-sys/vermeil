@@ -10,9 +10,11 @@ function Point({ children }) {
   );
 }
 // Remets ici ton numéro WhatsApp : indicatif 229 + numéro, sans + ni espaces
-const NUMERO_WHATSAPP = '2290193517846';
-const MESSAGE = "Bonjour Vybénia , j'ai besoin d'aide.";
+
+const NUMERO_WHATSAPP = '22993517846';
+const MESSAGE = "Bonjour, j'ai besoin d'aide.";
 const LIEN_CHAINE_WHATSAPP = 'colle-ici-le-lien-de-ta-chaîne';
+
 export default function Accueil() {
   return (
     <main>
@@ -20,7 +22,7 @@ export default function Accueil() {
         <div className="apparition">
           <div className="calli hero-v">V</div>
           <div className="calli" style={{ fontSize: '2.6rem', color: 'var(--vermeil)', marginTop: -8 }}>
-            Vybénia 
+            Vermeil
           </div>
           <div className="ornement">◆</div>
           <h1
@@ -59,7 +61,7 @@ export default function Accueil() {
         <div style={{ maxWidth: 420, margin: '0 auto', display: 'grid', gap: 20 }}>
           <div className="carte" style={{ padding: 20 }}>
             <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
-              Pourquoi acheter sur Vybénia  ?
+              Pourquoi acheter sur Vermeil ?
             </h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <Point>Des pièces uniques : chaque création est faite à la main, pas en série.</Point>
@@ -71,7 +73,7 @@ export default function Accueil() {
 
           <div className="carte" style={{ padding: 20 }}>
             <h2 className="calli" style={{ fontSize: '2rem', color: 'var(--vermeil)' }}>
-              Pourquoi créer et vendre sur Vybénia  ?
+              Pourquoi créer et vendre sur Vermeil ?
             </h2>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               <Point>Ouvre ta boutique en quelques minutes, depuis ton téléphone, gratuitement pour démarrer.</Point>
@@ -84,13 +86,7 @@ export default function Accueil() {
       </section>
 
       <footer style={{ padding: '8px 24px 56px', textAlign: 'center' }}>
-        <a
-          href={`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(MESSAGE)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ fontWeight: 700, textDecoration: 'underline' }}
-        >
-        <a
+                <a
           href={LIEN_CHAINE_WHATSAPP}
           target="_blank"
           rel="noopener noreferrer"
@@ -99,7 +95,14 @@ export default function Accueil() {
         >
           Suivre les nouveautés sur WhatsApp
         </a>
-          Service client (WhatsApp)
+        <a
+          href={`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(MESSAGE)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ fontWeight: 700, textDecoration: 'underline' }}
+        >
+        
+9          Service client (WhatsApp)
         </a>
       </footer>
     </main>
