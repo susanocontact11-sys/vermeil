@@ -13,7 +13,7 @@ function Point({ children }) {
 
 const NUMERO_WHATSAPP = '22993517846';
 const MESSAGE = "Bonjour, j'ai besoin d'aide.";
-const LIEN_CHAINE_WHATSAPP = 'colle-ici-le-lien-de-ta-chaîne';
+const LIEN_CHAINE_WHATSAPP = 'https://whatsapp.com/channel/0029VbEEiFIBPzjc62etI53X';
 
 export default function Accueil() {
   return (
