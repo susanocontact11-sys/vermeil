@@ -102,7 +102,7 @@ export default function Accueil() {
           style={{ fontWeight: 700, textDecoration: 'underline' }}
         >
         
-9          Service client (WhatsApp)
+       Service client (WhatsApp)
         </a>
       </footer>
     </main>
