@@ -3,7 +3,7 @@ import { connection } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
 // Ordre d'affichage des catégories (les autres viendront après)
-const ORDRE = ['Bijoux', 'Perles', 'T-shirts personnalisés', 'Autre'];
+import { CATEGORIES as ORDRE } from '@/lib/categories';
 
 // Réglages de la "recommandation" simple
 const MAX_PAR_RANGEE = 6; // nombre de produits affichés par catégorie
