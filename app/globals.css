@@ -172,3 +172,14 @@ body {
 .rangee::-webkit-scrollbar {
   display: none;
 }   
+form,
+label {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+input,
+select,
+textarea {
+  max-width: 100%;
+  min-width: 0;
+}
