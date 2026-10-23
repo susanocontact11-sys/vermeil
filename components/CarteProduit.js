@@ -138,11 +138,11 @@ export default function CarteProduit({ p, boutique }) {
         {ouvert && !commande && (
           <form onSubmit={envoyer} style={{ display: 'grid', gap: 12, marginTop: 14 }}>
             <label style={etiquette}>
-              Ton nom
+              Votre nom
               <input style={champ} name="nom" value={form.nom} onChange={maj} required />
             </label>
             <label style={etiquette}>
-              Ton numéro WhatsApp
+              Votre numéro WhatsApp
               <input
                 style={champ}
                 name="whatsapp"
@@ -203,7 +203,7 @@ export default function CarteProduit({ p, boutique }) {
           <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
             <p style={{ fontWeight: 800 }}>Commande envoyée ✅</p>
             <p style={{ fontSize: '0.9rem' }}>
-              Le créateur la verra dans son espace. Pour aller plus vite, préviens-le aussi sur
+              Le créateur la verra dans son espace. Vous pouvez aussi le prévenir sur
               WhatsApp :
             </p>
             <a
