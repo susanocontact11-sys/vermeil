@@ -161,7 +161,7 @@ export default function Gerer() {
                   className="bouton"
                   style={{ flex: 1, padding: '10px 8px', fontSize: '0.9rem' }}
                 >
-                  Voir ma boutique
+                  Voir ma boutique comme un client 
                 </Link>
                 <button
                   onClick={copierLien}
