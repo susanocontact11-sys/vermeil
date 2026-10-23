@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { compresserImage } from '@/lib/image';
+import { CATEGORIES } from '@/lib/categories';
 
-const CATEGORIES = ['Bijoux', 'Perles', 'T-shirts personnalisés', 'Autre'];
 
 const champ = {
   width: '100%',
@@ -75,6 +75,10 @@ export default function ProduitsGestion({ boutique, user }) {
 
   async function ajouter(e) {
     e.preventDefault();
+        if (!photo) {
+      setErreur('Ajoutez une photo du produit.');
+      return;
+        }
     setErreur('');
     setEnvoi(true);
     try {
@@ -177,17 +181,68 @@ export default function ProduitsGestion({ boutique, user }) {
           </select>
         </label>
 
-        <label style={etiquette}>
+                <div style={etiquette}>
           Photo
-          <input key={cle} type="file" accept="image/*" onChange={choisirPhoto} required />
-          {apercu && (
-            <img
-              src={apercu}
-              alt="Aperçu"
-              style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 14 }}
+          <label
+            style={{
+              display: 'grid',
+              placeItems: 'center',
+              gap: 8,
+              minHeight: 150,
+              padding: apercu ? 0 : 16,
+              border: '2px dashed var(--vermeil)',
+              borderRadius: 16,
+              background: 'var(--creme-fonce)',
+              color: 'var(--vermeil)',
+              fontWeight: 800,
+              textAlign: 'center',
+              cursor: 'pointer',
+              overflow: 'hidden',
+            }}
+          >
+            {apercu ? (
+              <img
+                src={apercu}
+                alt="Aperçu"
+                style={{ width: '100%', maxHeight: 260, objectFit: 'cover', display: 'block' }}
+              />
+            ) : (
+              <>
+                <span
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: '50%',
+                    background: 'var(--or)',
+                    color: '#fff',
+                    display: 'grid',
+                    placeItems: 'center',
+                    fontSize: '2rem',
+                    lineHeight: 1,
+                  }}
+                >
+                  +
+                </span>
+                <span>Touchez pour ajouter une photo</span>
+                <span style={{ fontWeight: 400, fontSize: '0.8rem', opacity: 0.8 }}>
+                  Elle est réduite automatiquement
+                </span>
+              </>
+            )}
+            <input
+              key={cle}
+              type="file"
+              accept="image/*"
+              onChange={choisirPhoto}
+              style={{ display: 'none' }}
             />
+          </label>
+          {apercu && (
+            <span style={{ fontWeight: 400, fontSize: '0.85rem' }}>
+              Touchez la photo pour la changer.
+            </span>
           )}
-        </label>
+        </div>
 
         <label style={etiquette}>
           Description (facultatif)
