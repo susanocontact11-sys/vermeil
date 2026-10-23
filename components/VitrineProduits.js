@@ -64,7 +64,7 @@ export default async function VitrineProduits() {
     <section style={{ padding: '8px 0 32px' }}>
       <div style={{ textAlign: 'center', padding: '0 24px' }}>
         <h2 className="calli" style={{ fontSize: '2.6rem', color: 'var(--vermeil)', lineHeight: 1.1 }}>
-          Découvre les créations
+          Découvrez les créations
         </h2>
         <div className="ornement">◆</div>
       </div>
