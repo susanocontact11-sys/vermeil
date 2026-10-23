@@ -22,7 +22,7 @@ export default function MessageAccueil({ boutique }) {
         Mon message aux clients
       </h2>
       <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>
-        Il s'affiche en haut de ta boutique. Ex : « Découvre ma nouvelle création sur ma story
+        Il s'affiche en haut de votre boutique. Ex : « Découvrez ma nouvelle création sur ma story
         Facebook ! »
       </p>
       <textarea
